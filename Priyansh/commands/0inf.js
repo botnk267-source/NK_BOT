@@ -26,20 +26,20 @@ module.exports.run = async function({ api,event,args,client,Users,Threads,__GLOB
   var link =                                     
   ["https://i.ibb.co/DDkk6qCv/IMG-20250804-WA0735.jpg"]; // DP लिंक यहाँ अपडेट किया गया है
   var callback = () => api.sendMessage({
-    body:` ╾━╤デ╦︻(▀̿Ĺ̯▀̿ ̿)🌺❤️💙 𝐀𝐃𝐌𝐈𝐍 𝐀𝐍𝐃 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 🌺💜
+    body:` ─╤╦︻)🌺❤️💙 𝐀𝐃𝐌𝐈𝐍 𝐀𝐍𝐃 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 🌺💜
 (⌐▀͡ ̯ʖ▀)︻̷┻̿═━一-
 
 ☄️Bot Name︎︎︎☄️  ${global.config.BOTNAME}
 
 🔥Bot Admin🔥─━━◉❖𝑵𝑲≛𝑬𝑫𝑰𝑻𝑶𝑹❖◉━━─💔🥀
 
-🙈bot andmin owner facebook id link🙈➪ https://www.facebook.com/profile.php?id=61577417285926 💞🕊️
+🙈 𝑩𝑶𝑻 𝑨𝑫𝑴𝑰𝑵 𝑶𝑾𝑵𝑬𝑹 𝑭𝑨𝑪𝑬𝑩𝑶𝑶𝑲 𝑰𝑫 𝑳𝑰𝑵𝑲 ☞ 👇➪ https://www.facebook.com/profile.php?id=61577417285926 💞🕊️
 
-👋For Any Kind Of Help Contact On Instagram 👇👇 https://www.instagram.com/nk_lovely_143_1?igsh=OXY4eDBsbzEzMnVr==
+👋𝑭𝑶𝑹 𝑨𝑵𝒀 𝑲𝑰𝑵𝑫 𝑶𝑭 𝑯𝑬𝑳𝑷 𝑪𝑶𝑵𝑻𝑨𝑪𝑻 𝑶𝑵 𝑰𝑵𝑺𝑻𝑨𝑮𝑹𝑨𝑴 👇👇☞ https://www.instagram.com/nk_lovely_143_1?igsh=OXY4eDBsbzEzMnVr==
 
 ✧══════•❁❀❁•══════✧
 
-🌸Bot Prefix🌸☞︎︎︎☜︎︎︎✰ ${global.config.PREFIX}
+🌸Bot Prefix🌸☞︎︎︎.☜︎︎︎✰ ${global.config.PREFIX}
 
 ♥️Bot Owner♥️ ─━━◉❖𝑵𝑲≛𝑬𝑫𝑰𝑻𝑶𝑹❖◉━━─
 
@@ -49,7 +49,7 @@ module.exports.run = async function({ api,event,args,client,Users,Threads,__GLOB
 
 ⚡Bot is running⚡ ${hours}:${minutes}:${seconds}.
 
-✅Thanks for using ${global.config.BOTNAME} 𝑁𝐾 𝐵𝑂𝑇🖤
+✅Thanks for using ${global.config.BOTNAME} @Menion. 🖤
 
 
 🦢🍒•••ꞪɛᏒɛ ɪʂ ɮ❍┼ ❍ωɳɜɽ ɳaʍɜ•••🌷💞
