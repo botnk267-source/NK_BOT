@@ -63,11 +63,6 @@ module.exports.onLoad = ({ api }) => {
                 });
             });
         });
-
-       type: "image",
-        payload: {
-          url: "https://i.ibb.co/DDkk6qCv/IMG-20250804-WA0735.jpg",
-          is_reusable: true, 
     });
 };
 
