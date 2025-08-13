@@ -14,7 +14,7 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
 	var { threadID, messageID } = event;
 	if (event.body.indexOf("MILK CAKE")==0 || event.body.indexOf("Milk cake")==0 || event.body.indexOf("milk cake")==0 || event.body.indexOf("Milkcake")==0) {
 		var msg = {
-				body: "💝 YE LO BBY MILK CAKE KHAO 🥮\n\n(─━━◉❖𝗝𝗨𝗟𝗠𝗜≛𝗝𝗔𝗔𝗧❖◉━━─)",
+				body: "💝 YE LO BBY MILK CAKE KHAO 🥮\n\n(─━━◉❖𝑵𝑲≛𝑬𝑫𝑰𝑻𝑶𝑹❖◉━━─)",
 				attachment: 
 fs.createReadStream(__dirname + `/cache/Milkcake.jpg`)
 			}
