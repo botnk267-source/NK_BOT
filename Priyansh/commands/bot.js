@@ -174,7 +174,7 @@ if ((event.body.toLowerCase() == "Love you") || (event.body.toLowerCase() == "bo
      return api.sendMessage("Main Hun Naw Jaaneman ❤️", threadID);
    };
 
-   if ((event.body.toLowerCase() == "@Dhoke Baaz") || (event.body.toLowerCase() == " tere bass kaha hai  ") || (event.body.toLowerCase() == "tere malik kon ") || (event.body.toLowerCase() == "tera owner kom hai ")) {
+   if ((event.body.toLowerCase() == "{@Dhoke Baaz}") || (event.body.toLowerCase() == " tere bass kaha hai  ") || (event.body.toLowerCase() == "tere malik kon ") || (event.body.toLowerCase() == "tera owner kom hai ")) {
      return api.sendMessage( " NK Busy HoGa Work Me Yha Main t0o Hun Na https://www.facebook.com/profile.php?id=61577417285926",threadID);
 
 
@@ -353,7 +353,7 @@ if ((event.body.toLowerCase() == "I love you") || (event.body.toLowerCase() == "
    
    mess = "{name}"
 
-  if (event.body.indexOf("Nk") == 0 || (event.body.indexOf("bot") == 0)) {
+  if (event.body.indexOf("Nk") == 0 || (event.body.indexOf("bot")==0)) {
     var msg = {
        
       body: `|I{•------»${name}«------•}I|\n\n${rand}
