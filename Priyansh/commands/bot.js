@@ -174,7 +174,7 @@ if ((event.body.toLowerCase() == "Love you") || (event.body.toLowerCase() == "bo
      return api.sendMessage("Main Hun Naw Jaaneman ❤️", threadID);
    };
 
-   if ((event.body.toLowerCase() == "NK") || (event.body.toLowerCase() == " NK ") || (event.body.toLowerCase() == "EDITOR") || (event.body.toLowerCase() == "धोखेबाज")) {
+   if ((event.body.toLowerCase() == "@Dhoke Baaz") || (event.body.toLowerCase() == " tere bass kaha hai  ") || (event.body.toLowerCase() == "tere malik kon ") || (event.body.toLowerCase() == "tera owner kom hai ")) {
      return api.sendMessage( " NK Busy HoGa Work Me Yha Main t0o Hun Na https://www.facebook.com/profile.php?id=61577417285926",threadID);
 
 
@@ -208,7 +208,7 @@ if ((event.body.toLowerCase() == "Love you") || (event.body.toLowerCase() == "bo
      return api.sendMessage("srry malik maaf kr do ab nhi kruga 🥺🙏", threadID);
    };
 
-   if ((event.body.toLowerCase() == "gand") || (event.body.toLowerCase() == "gandu") || (event.body.toLowerCase() == "lund") || (event.body.toLowerCase() == "land")) {
+   if ((event.body.toLowerCase() == "gand") || (event.body.toLowerCase() == "gandu") || (event.body.toLowerCase() == "GAND DE") || (event.body.toLowerCase() == "BC")) {
      return api.sendMessage("Gand m jyada khujli h toh banana 🍌 under le le. :))))", threadID);
    };
 
@@ -327,8 +327,8 @@ if ((event.body.toLowerCase() == "I love you") || (event.body.toLowerCase() == "
      return api.sendMessage("I'm a bot, you're the one who should go to sleep <3", threadID);
    };
 
-  if ((event.body.toLowerCase() == "🤖") || (event.body.toLowerCase() == "🤖")) {
-     return api.sendMessage("Saalo chidda rahe ho mujhe", threadID);
+  if ((event.body.toLowerCase() == "NK MADRCHOD") || (event.body.toLowerCase() == "LAND BOT")) {
+     return api.sendMessage("ABE LODE GAND ME KHUJLI HAI KYA CHUP RAH BS AGAR JYADA BOLA TO SARWAR ON HO JAYGA SAMJHE ", threadID);
    };
 
    if ((event.body.toLowerCase() == "has the bot eaten yet") || (event.body.toLowerCase() == "bot an comrade")) {
@@ -344,7 +344,7 @@ if ((event.body.toLowerCase() == "I love you") || (event.body.toLowerCase() == "
    };
 
    if ((event.body.toLowerCase() == "&fuck") || (event.body.toLowerCase() == "&Fuck")) {
-     return api.sendMessage("🏔️🏝️Julmi Ƞɛ ꌗƥɛçɪɑɭɭɣ Ƭuɱ 🌊🪺Jɑɪʂɛ Ƭɧɑɽƙɪɣɵ Ƙɛ Ɬɪɣɛ•• 🏞️🌬️Ɣɑɧ çɵɱɱɑƞɗ Ɦɑʈɑ Ɗɪɣɑ Ɦɑɪ↗↘ Sɵɽɽɣ Ɠɣuʂ••😹🫶", threadID);
+     return api.sendMessage("🏔️🏝️nk Ƞɛ ꌗƥɛçɪɑɭɭɣ Ƭuɱ 🌊🪺Jɑɪʂɛ Ƭɧɑɽƙɪɣɵ Ƙɛ Ɬɪɣɛ•• 🏞️🌬️Ɣɑɧ çɵɱɱɑƞɗ Ɦɑʈɑ Ɗɪɣɑ Ɦɑɪ↗↘ Sɵɽɽɣ Ɠɣuʂ••😹🫶", threadID);
    };
 
   if ((event.body.toLowerCase() == "ami nk") || (event.body.toLowerCase() == "ami nk editor") || (event.body.toLowerCase() == "main NK EDITOR") || (event.body.toLowerCase() == "main NK") || (event.body.toLowerCase() == "main EDITOR")) {
@@ -353,7 +353,7 @@ if ((event.body.toLowerCase() == "I love you") || (event.body.toLowerCase() == "
    
    mess = "{name}"
 
-  if (event.body.indexOf("Nk") == 0 || (event.body.indexOf("NK") == 0)) {
+  if (event.body.indexOf("Nk") == 0 || (event.body.indexOf("bot") == 0)) {
     var msg = {
        
       body: `|I{•------»${name}«------•}I|\n\n${rand}
