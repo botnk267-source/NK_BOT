@@ -1,7 +1,7 @@
 const axios = require("axios");
 const yts = require("yt-search");
 
-// 🔗 Get Base API URL
+// 🔗 Base API URL fetch
 const baseApiUrl = async () => {
     const base = await axios.get(`https://raw.githubusercontent.com/Mostakim0978/D1PT0/refs/heads/main/baseApiUrl.json`);
     return base.data.api;
@@ -13,81 +13,128 @@ const baseApiUrl = async () => {
     };
 })();
 
-// 🔧 Utils: Get Stream from URL
+// Local getStreamFromURL function
 async function getStreamFromURL(url, pathName) {
-    try {
-        const response = await axios.get(url, { responseType: "stream" });
-        response.data.path = pathName;
-        return response.data;
-    } catch (err) {
-        throw new Error("Failed to get stream from URL.");
-    }
+    const response = await axios.get(url, { responseType: "stream" });
+    response.data.path = pathName;
+    return response.data;
 }
 
-global.utils = {
-    ...global.utils,
-    getStreamFromURL: global.utils.getStreamFromURL || getStreamFromURL
-};
-
-// 🔍 Extract YouTube Video ID
+// YouTube Video ID extract
 function getVideoID(url) {
     const regex = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})(?:\S+)?$/;
     const match = url.match(regex);
     return match ? match[1] : null;
 }
 
-// 📦 Command Configuration
 module.exports.config = {
     name: "video",
-    version: "1.1.0",
+    version: "2.0.0",
     hasPermssion: 0,
-    credits: "Mesbah Saxx (Edited by Rudra)",
-    description: "Download YouTube video by URL or name",
+    credits: "mishv (Raj Edit)",
+    description: "YouTube video URL या नाम से MP4 डाउनलोड करे",
     commandCategory: "media",
-    usages: "[url | song name]",
-    cooldowns: 5,
-    usePrefix: true
+    usages: "[YouTube URL या song का नाम]",
+    cooldowns: 0
 };
 
-// 🚀 Command Execution
-module.exports.run = async function ({ api, args, event }) {
+// Temporary storage for search results
+const userSearchData = {};
+
+module.exports.run = async function ({ api, event, args }) {
     try {
-        let videoID, w;
         const url = args[0];
 
-        // Check if input is a YouTube link
+        // अगर YouTube link दिया → Direct Download
         if (url && (url.includes("youtube.com") || url.includes("youtu.be"))) {
-            videoID = getVideoID(url);
-            if (!videoID) {
-                return api.sendMessage("❌ Invalid YouTube URL provided!", event.threadID, event.messageID);
-            }
-        } else {
-            const query = args.join(' ');
-            if (!query) return api.sendMessage("❌ Please provide a song name or YouTube link!", event.threadID, event.messageID);
-
-            w = await api.sendMessage(`🔍 Searching for: "${query}"`, event.threadID);
-            const r = await yts(query);
-            const videos = r.videos.slice(0, 30);
-            const selected = videos[Math.floor(Math.random() * videos.length)];
-            videoID = selected.videoId;
+            const videoID = getVideoID(url);
+            if (!videoID) return api.sendMessage("❌ गलत YouTube URL!", event.threadID, event.messageID);
+            return downloadAndSend(api, event, videoID);
         }
 
-        // 🔗 Download link fetch
-        const { data: { title, quality, downloadLink } } = await axios.get(`${global.apis.diptoApi}/ytDl3?link=${videoID}&format=mp4`);
+        // अगर नाम दिया → Search Top 5 Results
+        const query = args.join(" ");
+        if (!query) return api.sendMessage("❌ Song का नाम या YouTube link दो!", event.threadID, event.messageID);
 
-        if (w?.messageID) api.unsendMessage(w.messageID);
+        const searchMsg = await api.sendMessage(`🔍 Searching: "${query}"`, event.threadID);
+        const result = await yts(query);
+        const videos = result.videos.slice(0, 5);
 
-        // 🔗 Shorten link using TinyURL
-        const shortenedLink = (await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(downloadLink)}`)).data;
+        api.unsendMessage(searchMsg.messageID);
 
-        // 📩 Send message with stream
-        return api.sendMessage({
-            body: `🎬 Title: ${title}\n📺 Quality: ${quality}\n📥 Download: ${shortenedLink}`,
-            attachment: await global.utils.getStreamFromURL(downloadLink, `${title}.mp4`)
-        }, event.threadID, event.messageID);
+        let replyMsg = "🎯 Top 5 Results:\n";
+        videos.forEach((v, i) => {
+            replyMsg += `${i + 1}. ${v.title} (${v.timestamp})\n`;
+        });
+        replyMsg += "\n📌 Reply with number (1-5) to download.";
+
+        // Save search data for this user
+        userSearchData[event.senderID] = videos;
+
+        return api.sendMessage(replyMsg, event.threadID, (err, info) => {
+            global.client.handleReply.push({
+                name: module.exports.config.name,
+                messageID: info.messageID,
+                author: event.senderID,
+                type: "selection"
+            });
+        });
 
     } catch (err) {
         console.error(err);
-        return api.sendMessage("⚠️ Error: " + (err.message || "Something went wrong."), event.threadID, event.messageID);
+        return api.sendMessage("⚠️ Error: " + (err.message || "कुछ गड़बड़ हो गया!"), event.threadID, event.messageID);
     }
 };
+
+module.exports.handleReply = async function ({ api, event, handleReply }) {
+    if (handleReply.type === "selection" && handleReply.author === event.senderID) {
+        const choice = parseInt(event.body);
+        if (isNaN(choice) || choice < 1 || choice > 5) {
+            return api.sendMessage("❌ 1-5 का नंबर reply में दो!", event.threadID, event.messageID);
+        }
+
+        const selectedVideo = userSearchData[event.senderID][choice - 1];
+        if (!selectedVideo) return api.sendMessage("❌ Video नहीं मिला!", event.threadID, event.messageID);
+
+        // Delete user search data
+        delete userSearchData[event.senderID];
+
+        api.unsendMessage(handleReply.messageID);
+
+        return downloadAndSend(api, event, selectedVideo.videoId);
+    }
+};
+
+// 🔽 Function to download and send video
+async function downloadAndSend(api, event, videoID) {
+    try {
+        const fullLink = `https://youtu.be/${videoID}`;
+        let apiUrl = `${global.apis.diptoApi}/ytDl3?link=${encodeURIComponent(fullLink)}&format=mp4`;
+
+        let res;
+        try {
+            res = await axios.get(apiUrl);
+        } catch (err) {
+            // अगर पहला API fail हो गया → Backup API use करो
+            console.log("⚠️ Main API fail, backup API use हो रहा है...");
+            res = await axios.get(`https://api.akuari.my.id/downloader/youtube?link=${encodeURIComponent(fullLink)}`);
+        }
+
+        const data = res.data;
+        const title = data.title || data.result?.title || "YouTube Video";
+        const quality = data.quality || data.result?.quality || "Unknown";
+        const downloadLink = data.downloadLink || data.result?.url;
+
+        if (!downloadLink) throw new Error("Download link नहीं मिला");
+
+        const shortLink = (await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(downloadLink)}`)).data;
+
+        return api.sendMessage({
+            body: `🎬 Title: ${title}\n📺 Quality: ${quality}\n📥 Download: ${shortLink}`,
+            attachment: await getStreamFromURL(downloadLink, `${title}.mp4`)
+        }, event.threadID, event.messageID);
+    } catch (err) {
+        console.error(err);
+        return api.sendMessage("⚠️ Error: " + (err.message || "Download fail हो गया!"), event.threadID, event.messageID);
+    }
+}
