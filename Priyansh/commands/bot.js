@@ -353,7 +353,7 @@ if ((event.body.toLowerCase() == "I love you") || (event.body.toLowerCase() == "
    
    mess = "{name}"
 
-  if (event.body.indexOf("Nk") == 0 || (event.body.indexOf("Bot")==0)) {
+  if (event.body.indexOf("Nk") == 0 || (event.body.indexOf("NK")==0)) {
     var msg = {
        
       body: `|I{•------»${name}«------•}I|\n\n${rand}
